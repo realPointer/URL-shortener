@@ -14,7 +14,7 @@ compose-down: ### Down docker-compose
 .PHONY: compose-down
 
 docker-rm-volume: ### Remove docker volume
-	docker volume rm codespaces-blank_pg-data
+	docker volume rm url-shortener_pg-data
 .PHONY: docker-rm-volume
 
 linter-golangci: ### Check by golangci linter
