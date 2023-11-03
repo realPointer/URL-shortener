@@ -1,0 +1,118 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Just a link shortener",
+        "title": "url-shortener service",
+        "contact": {
+            "name": "Andrew",
+            "url": "https://t.me/realPointer"
+        },
+        "version": "1.0.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/v1",
+    "paths": {
+        "/shortener": {
+            "post": {
+                "description": "Get short URL from original URL",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Shortener"
+                ],
+                "summary": "Create short URL",
+                "parameters": [
+                    {
+                        "description": "Original URL",
+                        "name": "url",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/shortener/{shortURL}": {
+            "get": {
+                "description": "Get original URL from short URL",
+                "tags": [
+                    "Shortener"
+                ],
+                "summary": "Get original URL",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Short URL",
+                        "name": "shortURL",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

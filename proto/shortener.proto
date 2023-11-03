@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "../pb";
+
+service Shortener {
+  rpc GetOriginalURL(GetOriginalURLRequest) returns (GetOriginalURLResponse) {}
+  rpc CreateShortURL(CreateShortURLRequest) returns (CreateShortURLResponse) {}
+}
+
+message GetOriginalURLRequest {
+  string shortURL = 1;
+}
+
+message GetOriginalURLResponse {
+  string originalURL = 1;
+}
+
+message CreateShortURLRequest {
+  string originalURL = 1;
+}
+
+message CreateShortURLResponse {
+  string shortURL = 1;
+}

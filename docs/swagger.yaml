@@ -1,0 +1,78 @@
+basePath: /v1
+host: localhost:8080
+info:
+  contact:
+    name: Andrew
+    url: https://t.me/realPointer
+  description: Just a link shortener
+  title: url-shortener service
+  version: 1.0.0
+paths:
+  /shortener:
+    post:
+      consumes:
+      - application/json
+      description: Get short URL from original URL
+      parameters:
+      - description: Original URL
+        in: body
+        name: url
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create short URL
+      tags:
+      - Shortener
+  /shortener/{shortURL}:
+    get:
+      description: Get original URL from short URL
+      parameters:
+      - description: Short URL
+        in: path
+        name: shortURL
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get original URL
+      tags:
+      - Shortener
+swagger: "2.0"

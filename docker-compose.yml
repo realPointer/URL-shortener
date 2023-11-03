@@ -1,0 +1,48 @@
+version: '3.9'
+
+services:
+  app-inmemdb:
+    container_name: app
+    build: .
+    env_file:
+      - .env
+    environment:
+      - STORAGE_TYPE=inmem
+    profiles:
+      - inmem
+    ports:
+      - "${HTTP_PORT}:${HTTP_PORT}"
+      - "${GRPC_PORT}:${GRPC_PORT}"
+    restart: unless-stopped
+
+  app-postgres:
+    container_name: app
+    build: .
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    environment:
+      - STORAGE_TYPE=postgres
+    profiles:
+      - postgres
+    ports:
+      - "${HTTP_PORT}:${HTTP_PORT}"
+      - "${GRPC_PORT}:${GRPC_PORT}"
+    restart: unless-stopped
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    profiles:
+      - postgres
+    env_file:
+      - .env
+    ports:
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    restart: unless-stopped
+
+volumes:
+  pg-data:
